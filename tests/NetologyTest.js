@@ -27,8 +27,10 @@
      page.waitForNavigation(/*{ url: 'https://netology.ru/profile' }*/),
      page.click('[data-testid="login-submit-btn"]')
    ]);
-   await (page.locator('h2'), {hasText: 'Мои курсы и профессии'});
-     
+   await expect(page.url()).toBe("https://netology.ru/profile");
+   await expect(page.locator("h2")).toHaveText("Мои курсы и профессии");
+
+  await browser.close();
  });
  
  //Тест 2. Неуспешная авторизация
@@ -39,8 +41,10 @@
    await page.click('[name="password"]');
    await page.fill('[placeholder="Пароль"]', "password");
    await page.click('[data-testid="login-submit-btn"]');
-   await (page.locator('[data-testid="login-error-hint"]'), {hasText: 'Вы ввели неправильно логин или пароль'})
+   
+   await expect(page.locator("data-testid=login-error-hint")).toContainText("Вы ввели неправильно логин или пароль");
      
+   await browser.close();
  });
  
  })
